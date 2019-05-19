@@ -1,8 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Text;
-using Microsoft.EntityFrameworkCore.Design;
 using System.Linq;
 
 namespace OrderManagement
@@ -44,7 +41,7 @@ namespace OrderManagement
 
         }
 
-        public bool Delete(string email) //Deletes entry from database
+        public bool Delete(string email) //Deletes customer entry from database
         {
             try
             {
@@ -95,19 +92,19 @@ namespace OrderManagement
                     .SingleOrDefault(c => c.Email == email);
                 if (result != null)
                 {
-                   
+
                     var result2 = context.Set<Basket>()
                     .SingleOrDefault(b => b.BasketId == basketId);
                     if (result2 != null && result2.Customer.CustomerId == result.CustomerId)
                     {
                         result.Baskets.Remove(result2);
                         context.SaveChanges();
-                        //context.Remove(result2);
+                        //context.Remove(result2); //Throws exception//
                         //context.SaveChanges();
                     }
-                    
+
                 }
-               
+
                 return true;
             }
             catch (Exception e)
@@ -117,10 +114,23 @@ namespace OrderManagement
             }
         }
 
-        public List<Customer> GetRecentCustomers() //Not yet implemented
+        public List<Customer> GetRecentCustomers()
         {
             var list = new List<Customer>();
-            return list;
+            try
+            {
+                var context = new OrderManagementDbContext();
+                list = context.Set<Customer>()
+                    .Where(c => c.RegistrationDate.AddDays(7) >= DateTime.Today)
+                    .ToList();
+
+                return list;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return list;
+            }
         }
 
     }

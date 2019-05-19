@@ -1,7 +1,5 @@
 ﻿using System;
-using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
-using System.Linq;
+
 
 namespace OrderManagement
 {
@@ -118,9 +116,16 @@ namespace OrderManagement
             ////Deleting basket////
 
             //service.DeleteBasket("kotsos@gmail.com", 2);
+            /////////////////////////////////////////////
 
+            ////Recent customers////
 
+            //var customers = service.GetRecentCustomers();
 
+            //foreach (Customer t in customers)
+            //{
+            //    Console.WriteLine(t);
+            //}
 
 
             Console.ReadLine();

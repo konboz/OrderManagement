@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Text;
+
 
 namespace OrderManagement
 {
@@ -13,7 +13,7 @@ namespace OrderManagement
         public string Address { get; set; }
         [Required]
         public string Email { get; set; }
-        public virtual ICollection<Basket> Baskets { get; set; }
+        public virtual ICollection<Basket> Baskets { get; set; }  //Basket history
         public DateTime BirthDate { get; set; }
         public DateTime RegistrationDate { get; set; }
 
@@ -27,5 +27,10 @@ namespace OrderManagement
             RegistrationDate = DateTime.Today;
         }
 
+        public override string ToString()
+        {
+            return $"Name: {Name}, email: {Email}, address: {Address}" +
+                $", date of birth: {BirthDate}, registration date: {RegistrationDate}";
+        }
     }
 }

@@ -1,14 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using Microsoft.EntityFrameworkCore.Design;
 
 namespace OrderManagement
 {
     public class OrderManagementDbContext : DbContext
     {
- 
+
         protected override void OnConfiguring
            (DbContextOptionsBuilder optionsBuilder)
         {
@@ -26,7 +24,7 @@ namespace OrderManagement
             modelBuilder.Entity<Customer>()
                 .HasIndex(u => u.Email)
                 .IsUnique();
-                
+
             modelBuilder.Entity<Product>();
             modelBuilder.Entity<Basket>()
                .HasOne(e => e.Customer)
