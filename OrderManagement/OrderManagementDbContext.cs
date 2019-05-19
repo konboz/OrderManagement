@@ -26,9 +26,10 @@ namespace OrderManagement
                 .IsUnique();
 
             modelBuilder.Entity<Product>();
+
             modelBuilder.Entity<Basket>()
                .HasOne(e => e.Customer)
-               .WithMany(c => c.Baskets);
+               .WithMany(c => c.Baskets);   
         }
     }
 }

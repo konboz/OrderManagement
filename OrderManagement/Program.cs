@@ -24,7 +24,7 @@ namespace OrderManagement
             //    new DateTime(1995, 3, 27));
 
             ////Validating correct entry
-            //Console.WriteLine(c1); 
+            //Console.WriteLine(c1);
             //Console.WriteLine(c2);
 
             //service.Register(
@@ -64,7 +64,7 @@ namespace OrderManagement
 
             ////Deleting Customer////
 
-            //service.Delete("kavourdoukos@gmail.com");
+            //service.Delete("2@gmail.com");
             /////////////////////////////////////////////////
 
             ////Adding basket to customer////
@@ -117,7 +117,7 @@ namespace OrderManagement
 
             ////Deleting basket////
 
-            //service.DeleteBasket("kotsos@gmail.com", 2);
+            //service.DeleteBasket("JnDoe@gmail.com", 2);
             /////////////////////////////////////////////
 
             ////Recent customers////

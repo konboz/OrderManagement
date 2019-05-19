@@ -13,8 +13,8 @@ namespace OrderManagement
                 var context = new OrderManagementDbContext();
                 context.Add(new Customer(email, name, address, birthDate));
                 context.SaveChanges();
-                var context2 = new OrderManagementDbContext();
-                var customer = context2.Set<Customer>()
+
+                var customer = context.Set<Customer>()
                     .Last();
                 return customer;
             }
@@ -43,7 +43,7 @@ namespace OrderManagement
                 }
                 else
                 {
-                    Console.WriteLine("Email wrong or not found"); ;
+                    Console.WriteLine("Email not found"); ;
                 }
                 return true;
             }
@@ -97,24 +97,21 @@ namespace OrderManagement
             }
         }
 
-        public bool DeleteBasket(string email, int basketId) //Doesn't delete basket from database
+        public bool DeleteBasket(string email, int basketId) //Deletes basket from customer
         {
             try
             {
                 var context = new OrderManagementDbContext();
-                var result = context.Set<Customer>()
+                var resultC = context.Set<Customer>() //Customer with given email
                     .SingleOrDefault(c => c.Email == email);
-                if (result != null)
+                if (resultC != null)
                 {
-
-                    var result2 = context.Set<Basket>()
+                    var resultB = context.Set<Basket>() //Basket with given basketId that belongs to above customer
                     .SingleOrDefault(b => b.BasketId == basketId);
-                    if (result2 != null && result2.Customer.CustomerId == result.CustomerId)
+                    if (resultB != null && resultB.Customer.CustomerId == resultC.CustomerId)
                     {
-                        result.Baskets.Remove(result2);
+                        resultC.Baskets.Remove(resultB);
                         context.SaveChanges();
-                        //context.Remove(result2); //Throws exception//
-                        //context.SaveChanges();
                     }
 
                 }
