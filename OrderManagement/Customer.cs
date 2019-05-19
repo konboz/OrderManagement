@@ -27,6 +27,10 @@ namespace OrderManagement
             RegistrationDate = DateTime.Today;
         }
 
+        public Customer()
+        {
+        }
+
         public override string ToString()
         {
             return $"Name: {Name}, email: {Email}, address: {Address}" +

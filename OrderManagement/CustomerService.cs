@@ -8,8 +8,22 @@ namespace OrderManagement
     {
         public Customer Register(string email, string name, string address, DateTime birthDate)
         {
-            var customer = new Customer(email, name, address, birthDate);
-            return customer;
+            try
+            {
+                var context = new OrderManagementDbContext();
+                context.Add(new Customer(email, name, address, birthDate));
+                context.SaveChanges();
+                var context2 = new OrderManagementDbContext();
+                var customer = context2.Set<Customer>()
+                    .Last();
+                return customer;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                var customerFail = new Customer();
+                return customerFail;
+            }
         }
 
         public bool Update(string email, string name, string address, DateTime birthDate)

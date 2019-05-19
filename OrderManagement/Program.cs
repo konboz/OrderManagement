@@ -11,44 +11,46 @@ namespace OrderManagement
 
             ////Registering Customers////
 
-            //var context = new OrderManagementDbContext();
-            //context.Add(service.Register(
-            //    "kavourdoukou@gmail.com",
-            //    "Maria",
-            //    "Larissa",
-            //    new DateTime(1998, 1, 10)));
+            //var c1 = service.Register(
+            //    "JDoe@gmail.com",
+            //    "John",
+            //    "Trikala",
+            //    new DateTime(1958, 4, 17));
 
-            //context.Add(service.Register(
-            //    "papadopoulou@gmail.com",
-            //    "Xristina",
+            //var c2 = service.Register(
+            //    "JnDoe@gmail.com",
+            //    "Jane",
             //    "Athens",
-            //    new DateTime(1975, 4, 20)));
+            //    new DateTime(1995, 3, 27));
 
-            //context.Add(service.Register(
+            ////Validating correct entry
+            //Console.WriteLine(c1); 
+            //Console.WriteLine(c2);
+
+            //service.Register(
             //    "Matsablokou@gmail.com",
             //    "Aggeliki",
             //    "Korinthos",
-            //    new DateTime(1988, 7, 12)));
+            //    new DateTime(1988, 7, 12));
 
-            //context.Add(service.Register(
+            //service.Register(
             //    "kotsos@gmail.com",
             //    "Kostas",
             //    "Athens",
-            //    new DateTime(1988, 9, 14)));
+            //    new DateTime(1988, 9, 14));
 
-            //context.Add(service.Register(
+            //service.Register(
             //    "koukos@gmail.com",
             //    "Nikos",
             //    "Athens",
-            //    new DateTime(1965, 6, 22)));
+            //    new DateTime(1965, 6, 22));
 
-            //context.Add(service.Register(
+            //service.Register(
             //    "Korobos@gmail.com",
             //    "George",
             //    "Athens",
-            //    new DateTime(1992, 1, 1)));
-            //
-            //context.SaveChanges();
+            //    new DateTime(1992, 1, 1));
+
             ////////////////////////////////////////////////
 
             ////Updating Customer////
