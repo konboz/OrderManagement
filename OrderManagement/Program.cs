@@ -122,9 +122,9 @@ namespace OrderManagement
 
             ////Recent customers////
 
-            //var customers = service.GetRecentCustomers();
+            //var recentCustomers = service.GetRecentCustomers();
 
-            //foreach (Customer t in customers)
+            //foreach (Customer t in recentCustomers)
             //{
             //    Console.WriteLine(t);
             //}
