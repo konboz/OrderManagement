@@ -4,28 +4,34 @@ using Microsoft.EntityFrameworkCore.Design;
 
 namespace OrderManagement
 {
-    public class OrderManagementDbContext : DbContext
+    class OrderManagementDbContext : DbContext
     {
-
-        protected override void OnConfiguring
-           (DbContextOptionsBuilder optionsBuilder)
-        {
-            {
-                optionsBuilder
-                    .UseSqlServer(@"Server=localhost;Database=OrderManagementB;
-                    Trusted_Connection = True; ConnectRetryCount = 0;");
-            }
-        }
-
+        public DbSet<Product> Products { get; set; }
+        public DbSet<Basket> Baskets { get; set; }
+        public DbSet<Customer> Customers { get; set; }
+        public DbSet<BasketProduct> BasketProduct { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            base.OnModelCreating(modelBuilder);
-
-            modelBuilder.Entity<Basket>().HasOne(b => b.Customer);
-            modelBuilder.Entity<Basket>().HasMany(b => b.Cart);
-            modelBuilder.Entity<Product>().HasMany(p => p.Carts);
-            modelBuilder.Entity<Customer>().HasMany(c => c.Baskets);
-
+            modelBuilder.Entity<Basket>()
+                .HasOne(b => b.Customer)
+                .WithMany(c => c.Baskets)
+                .HasForeignKey(b => b.CustomerId);
+            modelBuilder.Entity<BasketProduct>()
+                .HasKey(t => new { t.BasketId, t.ProductId });
+            modelBuilder.Entity<BasketProduct>()
+                .HasOne(pt => pt.Basket)
+                .WithMany(p => p.BasketProducts)
+                .HasForeignKey(pt => pt.BasketId);
+            modelBuilder.Entity<BasketProduct>()
+                .HasOne(pt => pt.Product)
+                .WithMany(t => t.BasketProducts)
+                .HasForeignKey(pt => pt.ProductId);
+        }
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            string s = "Server =localhost; Database =OrderManagementB; Integrated Security=SSPI;" +
+                "Persist Security Info=False;";
+            base.OnConfiguring(optionsBuilder.UseSqlServer(s));
         }
     }
 }

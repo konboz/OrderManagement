@@ -10,7 +10,7 @@ using OrderManagement;
 namespace OrderManagement.Migrations
 {
     [DbContext(typeof(OrderManagementDbContext))]
-    [Migration("20190520081527_initial-create")]
+    [Migration("20190521085913_initial-create")]
     partial class initialcreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -27,21 +27,26 @@ namespace OrderManagement.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("CustomerId");
-
-                    b.Property<int?>("CustomerId1");
-
-                    b.Property<int?>("ProductId");
+                    b.Property<int>("CustomerId");
 
                     b.HasKey("BasketId");
 
                     b.HasIndex("CustomerId");
 
-                    b.HasIndex("CustomerId1");
+                    b.ToTable("Baskets");
+                });
+
+            modelBuilder.Entity("OrderManagement.BasketProduct", b =>
+                {
+                    b.Property<int>("BasketId");
+
+                    b.Property<int>("ProductId");
+
+                    b.HasKey("BasketId", "ProductId");
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("Basket");
+                    b.ToTable("BasketProduct");
                 });
 
             modelBuilder.Entity("OrderManagement.Customer", b =>
@@ -64,7 +69,7 @@ namespace OrderManagement.Migrations
 
                     b.HasKey("CustomerId");
 
-                    b.ToTable("Customer");
+                    b.ToTable("Customers");
                 });
 
             modelBuilder.Entity("OrderManagement.Product", b =>
@@ -85,22 +90,28 @@ namespace OrderManagement.Migrations
 
                     b.HasIndex("BasketId");
 
-                    b.ToTable("Product");
+                    b.ToTable("Products");
                 });
 
             modelBuilder.Entity("OrderManagement.Basket", b =>
                 {
                     b.HasOne("OrderManagement.Customer", "Customer")
-                        .WithMany()
-                        .HasForeignKey("CustomerId");
-
-                    b.HasOne("OrderManagement.Customer")
                         .WithMany("Baskets")
-                        .HasForeignKey("CustomerId1");
+                        .HasForeignKey("CustomerId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
 
-                    b.HasOne("OrderManagement.Product")
-                        .WithMany("baskets")
-                        .HasForeignKey("ProductId");
+            modelBuilder.Entity("OrderManagement.BasketProduct", b =>
+                {
+                    b.HasOne("OrderManagement.Basket", "Basket")
+                        .WithMany("BasketProducts")
+                        .HasForeignKey("BasketId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("OrderManagement.Product", "Product")
+                        .WithMany("BasketProducts")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("OrderManagement.Product", b =>
