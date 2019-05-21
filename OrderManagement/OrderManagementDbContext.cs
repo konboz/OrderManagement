@@ -15,7 +15,7 @@ namespace OrderManagement
             modelBuilder.Entity<Basket>()
                 .HasOne(b => b.Customer)
                 .WithMany(c => c.Baskets)
-                .HasForeignKey(b => b.CustomerId);
+                .HasForeignKey(b => b.Customer.CustomerId);
             modelBuilder.Entity<BasketProduct>()
                 .HasKey(t => new { t.BasketId, t.ProductId });
             modelBuilder.Entity<BasketProduct>()
@@ -29,7 +29,7 @@ namespace OrderManagement
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            string s = "Server =localhost; Database =OrderManagementB; Integrated Security=SSPI;" +
+            string s = "Server =localhost; Database =OrderManagementNew; Integrated Security=SSPI;" +
                 "Persist Security Info=False;";
             base.OnConfiguring(optionsBuilder.UseSqlServer(s));
         }
