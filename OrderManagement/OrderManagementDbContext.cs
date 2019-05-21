@@ -12,7 +12,7 @@ namespace OrderManagement
         {
             {
                 optionsBuilder
-                    .UseSqlServer(@"Server=localhost;Database=OrderManagement;
+                    .UseSqlServer(@"Server=localhost;Database=OrderManagementB;
                     Trusted_Connection = True; ConnectRetryCount = 0;");
             }
         }
@@ -21,15 +21,10 @@ namespace OrderManagement
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<Customer>()
-                .HasIndex(u => u.Email)
-                .IsUnique();
-
-            modelBuilder.Entity<Product>();
-
-            modelBuilder.Entity<Basket>()
-               .HasOne(e => e.Customer)
-               .WithMany(c => c.Baskets);
+            modelBuilder.Entity<Basket>().HasOne(b => b.Customer);
+            modelBuilder.Entity<Basket>().HasMany(b => b.Cart);
+            modelBuilder.Entity<Product>().HasMany(p => p.Carts);
+            modelBuilder.Entity<Customer>().HasMany(c => c.Baskets);
 
         }
     }

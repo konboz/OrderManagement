@@ -1,5 +1,5 @@
 ﻿using System;
-
+using System.Collections.Generic;
 
 namespace OrderManagement
 {
@@ -9,6 +9,7 @@ namespace OrderManagement
         public string ProductName { get; set; }
         public decimal Price { get; set; }
         public ProductCategory Category { get; set; }
+        public List<Basket> Carts { get; set; }
 
         public Product()
         {
