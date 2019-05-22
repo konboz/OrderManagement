@@ -10,7 +10,7 @@ using OrderManagement;
 namespace OrderManagement.Migrations
 {
     [DbContext(typeof(OrderManagementDbContext))]
-    [Migration("20190518181128_initial-create")]
+    [Migration("20190522090736_initial-create")]
     partial class initialcreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -27,13 +27,26 @@ namespace OrderManagement.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("CustomerId");
+                    b.Property<int>("CustomerId");
 
                     b.HasKey("BasketId");
 
                     b.HasIndex("CustomerId");
 
-                    b.ToTable("Basket");
+                    b.ToTable("Baskets");
+                });
+
+            modelBuilder.Entity("OrderManagement.BasketProduct", b =>
+                {
+                    b.Property<int>("BasketId");
+
+                    b.Property<int>("ProductId");
+
+                    b.HasKey("BasketId", "ProductId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("BasketProduct");
                 });
 
             modelBuilder.Entity("OrderManagement.Customer", b =>
@@ -41,6 +54,8 @@ namespace OrderManagement.Migrations
                     b.Property<int>("CustomerId")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<bool>("ActiveStatus");
 
                     b.Property<string>("Address");
 
@@ -56,10 +71,7 @@ namespace OrderManagement.Migrations
 
                     b.HasKey("CustomerId");
 
-                    b.HasIndex("Email")
-                        .IsUnique();
-
-                    b.ToTable("Customer");
+                    b.ToTable("Customers");
                 });
 
             modelBuilder.Entity("OrderManagement.Product", b =>
@@ -67,8 +79,6 @@ namespace OrderManagement.Migrations
                     b.Property<int>("ProductId")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int?>("BasketId");
 
                     b.Property<int>("Category");
 
@@ -78,23 +88,28 @@ namespace OrderManagement.Migrations
 
                     b.HasKey("ProductId");
 
-                    b.HasIndex("BasketId");
-
-                    b.ToTable("Product");
+                    b.ToTable("Products");
                 });
 
             modelBuilder.Entity("OrderManagement.Basket", b =>
                 {
                     b.HasOne("OrderManagement.Customer", "Customer")
                         .WithMany("Baskets")
-                        .HasForeignKey("CustomerId");
+                        .HasForeignKey("CustomerId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("OrderManagement.Product", b =>
+            modelBuilder.Entity("OrderManagement.BasketProduct", b =>
                 {
-                    b.HasOne("OrderManagement.Basket")
-                        .WithMany("Cart")
-                        .HasForeignKey("BasketId");
+                    b.HasOne("OrderManagement.Basket", "Basket")
+                        .WithMany("BasketProducts")
+                        .HasForeignKey("BasketId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("OrderManagement.Product", "Product")
+                        .WithMany("BasketProducts")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }
