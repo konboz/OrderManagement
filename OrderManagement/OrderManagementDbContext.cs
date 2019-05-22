@@ -10,12 +10,13 @@ namespace OrderManagement
         public DbSet<Basket> Baskets { get; set; }
         public DbSet<Customer> Customers { get; set; }
         public DbSet<BasketProduct> BasketProduct { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Basket>()
                 .HasOne(b => b.Customer)
                 .WithMany(c => c.Baskets)
-                .HasForeignKey(b => b.Customer.CustomerId);
+                .HasForeignKey(b => b.CustomerId);
             modelBuilder.Entity<BasketProduct>()
                 .HasKey(t => new { t.BasketId, t.ProductId });
             modelBuilder.Entity<BasketProduct>()

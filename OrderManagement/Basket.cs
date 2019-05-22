@@ -10,12 +10,12 @@ namespace OrderManagement
         public int BasketId { get; set; }
         public Customer Customer { get; set; }
         public int CustomerId { get; set; }
-        public List<Product> Cart { get; set; }
         public List<BasketProduct> BasketProducts { get; set; }
-
+        
         public Basket()
         {
-            Cart = new List<Product>();
+            BasketProducts = new List<BasketProduct>();
+            
         }
     }
 }

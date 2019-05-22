@@ -12,18 +12,18 @@ namespace OrderManagement
             ////Registering Customers////
 
             //var c1 = service.Register(
-            //    "JDoe@gmail.com",
-            //    "John",
-            //    "Trikala",
-            //    new DateTime(1958, 4, 17));
+            //   "papadopoulos@gmail.com",
+            //   "Manolis",
+            //   "Athens",
+            //   new DateTime(1995, 6, 22));
 
             //var c2 = service.Register(
-            //    "JnDoe@gmail.com",
-            //    "Jane",
-            //    "Athens",
-            //    new DateTime(1995, 3, 27));
+            //    "Nikolaou@gmail.com",
+            //    "Nikos",
+            //    "Korinthos",
+            //    new DateTime(2002, 1, 1));
 
-            ////Validating correct entry
+            //Validating successful entry
             //Console.WriteLine(c1);
             //Console.WriteLine(c2);
 
@@ -38,19 +38,6 @@ namespace OrderManagement
             //    "Kostas",
             //    "Athens",
             //    new DateTime(1988, 9, 14));
-
-            //service.Register(
-            //    "koukos@gmail.com",
-            //    "Nikos",
-            //    "Athens",
-            //    new DateTime(1965, 6, 22));
-
-            //service.Register(
-            //    "Korobos@gmail.com",
-            //    "George",
-            //    "Athens",
-            //    new DateTime(1992, 1, 1));
-
             ////////////////////////////////////////////////
 
             ////Updating Customer////
@@ -64,55 +51,69 @@ namespace OrderManagement
 
             ////Deleting Customer////
 
-            //service.Delete("2@gmail.com");
+            //service.Delete("JnDoe@gmail.com");
             /////////////////////////////////////////////////
 
             ////Adding basket to customer////
 
             //var basket = new Basket();
-            //basket.Cart.Add(new Product()
+
+            //basket.BasketProducts.Add(new BasketProduct()
             //{
-            //    ProductName = "Zara",
-            //    Category = ProductCategory.Jeans,
-            //    Price = 25.45m
+            //    Basket = basket,
+            //    Product = new Product()
+            //    {
+            //        ProductName = "Benetton",
+            //        Category = ProductCategory.Shirts,
+            //        Price = 35.58m
+            //    }
             //});
 
-            //basket.Cart.Add(new Product()
+            //basket.BasketProducts.Add(new BasketProduct()
             //{
-            //    ProductName = "Dainese",
-            //    Category = ProductCategory.Jackets,
-            //    Price = 99.99m
+            //    Basket = basket,
+            //    Product = new Product()
+            //    {
+            //        ProductName = "Diesel",
+            //        Category = ProductCategory.Jeans,
+            //        Price = 89.99m
+            //    }
             //});
 
-            //basket.Cart.Add(new Product()
+            //basket.BasketProducts.Add(new BasketProduct()
             //{
-            //    ProductName = "TCX",
-            //    Category = ProductCategory.Shoes,
-            //    Price = 125.58m
+            //    Basket = basket,
+            //    Product = new Product()
+            //    {
+            //        ProductName = "Nautica",
+            //        Category = ProductCategory.Jackets,
+            //        Price = 29.99m
+            //    }
             //});
 
-            //basket.Cart.Add(new Product()
+            //basket.BasketProducts.Add(new BasketProduct()
             //{
-            //    ProductName = "Polo",
-            //    Category = ProductCategory.Bags,
-            //    Price = 35.45m
+            //    Basket = basket,
+            //    Product = new Product()
+            //    {
+            //        ProductName = "Jack&Jones",
+            //        Category = ProductCategory.Jeans,
+            //        Price = 55.45m
+            //    }
             //});
 
-            //basket.Cart.Add(new Product()
+            //basket.BasketProducts.Add(new BasketProduct()
             //{
-            //    ProductName = "Benetton",
-            //    Category = ProductCategory.Shirts,
-            //    Price = 29.99m
+            //    Basket = basket,
+            //    Product = new Product()
+            //    {
+            //        ProductName = "Revit",
+            //        Category = ProductCategory.Shoes,
+            //        Price = 145.58m
+            //    }
             //});
 
-            //basket.Cart.Add(new Product()
-            //{
-            //    ProductName = "Levis",
-            //    Category = ProductCategory.Jeans,
-            //    Price = 105.58m
-            //});
-            //
-            //service.AddBasket("kotsos@gmail.com", basket);
+            //service.AddBasket("JnDoe@gmail.com", basket);
             //////////////////////////////////////////////
 
             ////Deleting basket////

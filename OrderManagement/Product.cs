@@ -13,9 +13,9 @@ namespace OrderManagement
         public ProductCategory Category { get; set; }
         public List<BasketProduct> BasketProducts { get; set; }
 
-        public Product()
-        {
-        }
+        //public Product()
+        //{
+        //}
         public override string ToString()
         {
             return $"{ProductId}:{ProductName}:{Price}:{Category.ToString()}";

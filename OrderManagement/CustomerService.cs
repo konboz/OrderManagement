@@ -8,21 +8,28 @@ namespace OrderManagement
     {
         public Customer Register(string email, string name, string address, DateTime birthDate)
         {
-            try
+            if (birthDate.AddYears(18) <= DateTime.Now)
             {
-                var context = new OrderManagementDbContext();
-                context.Add(new Customer(email, name, address, birthDate));
-                context.SaveChanges();
+                try
+                {
 
-                var customer = context.Set<Customer>()
-                    .Last();
-                return customer;
+                    var context = new OrderManagementDbContext();
+                    context.Add(new Customer(email, name, address, birthDate));
+                    context.SaveChanges();
+
+                    var customer = context.Set<Customer>()
+                        .Last();
+                    return customer;
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                    return new Customer();
+                }
             }
-            catch (Exception e)
+            else
             {
-                Console.WriteLine(e);
-                var customerFail = new Customer();
-                return customerFail;
+                return new Customer();
             }
         }
 
@@ -55,7 +62,7 @@ namespace OrderManagement
 
         }
 
-        public bool Delete(string email) //Deletes customer entry from database
+        public bool Delete(string email) //Deactivates customer
         {
             try
             {
@@ -63,7 +70,7 @@ namespace OrderManagement
                 var result = context.Set<Customer>().SingleOrDefault(b => b.Email == email);
                 if (result != null)
                 {
-                    context.Remove(result);
+                    result.ActiveStatus = false;
                     context.SaveChanges();
                 }
                 return true;
@@ -80,12 +87,15 @@ namespace OrderManagement
             try
             {
                 var context = new OrderManagementDbContext();
+               
                 var result = context.Set<Customer>()
+                    
                     .SingleOrDefault(b => b.Email == email);
                 if (result != null)
                 {
-                    result.Baskets.Add(basket);
+                    basket.Customer = result;
                     context.Add(basket);
+
                     context.SaveChanges();
                 }
                 return true;
@@ -108,9 +118,9 @@ namespace OrderManagement
                 {
                     var resultB = context.Set<Basket>() //Basket with given basketId that belongs to above customer
                     .SingleOrDefault(b => b.BasketId == basketId);
-                    if (resultB != null && resultB.Customer.CustomerId == resultC.CustomerId)
+                    if (resultB != null && resultB.CustomerId == resultC.CustomerId)
                     {
-                        resultC.Baskets.Remove(resultB);
+                        context.Remove(resultB);
                         context.SaveChanges();
                     }
 
@@ -132,7 +142,8 @@ namespace OrderManagement
             {
                 var context = new OrderManagementDbContext();
                 list = context.Set<Customer>()
-                    .Where(c => c.RegistrationDate.AddDays(7) >= DateTime.Today)
+                    .Where(c => c.RegistrationDate.AddDays(7) >= DateTime.Today 
+                    && c.ActiveStatus == true)
                     .ToList();
 
                 return list;
